@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package game.game;
+
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "game/game/params.proto";
+import "game/game/player.proto";
+import "game/game/game.proto";
+
+option go_package = "game/x/game/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  
+  // Parameters queries the parameters of the module.
+  rpc Params (QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/game/game/params";
+  
+  }
+  
+  // Queries a list of Player items.
+  rpc Player    (QueryGetPlayerRequest) returns (QueryGetPlayerResponse) {
+    option (google.api.http).get = "/game/game/player/{id}";
+  
+  }
+  rpc PlayerAll (QueryAllPlayerRequest) returns (QueryAllPlayerResponse) {
+    option (google.api.http).get = "/game/game/player";
+  
+  }
+  
+  // Queries a list of Game items.
+  rpc Game    (QueryGetGameRequest) returns (QueryGetGameResponse) {
+    option (google.api.http).get = "/game/game/game/{id}";
+  
+  }
+  rpc GameAll (QueryAllGameRequest) returns (QueryAllGameResponse) {
+    option (google.api.http).get = "/game/game/game";
+  
+  }
+}
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  
+  // params holds all the parameters of this module.
+  Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetPlayerRequest {
+  uint64 id = 1;
+}
+
+message QueryGetPlayerResponse {
+  Player Player = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllPlayerRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllPlayerResponse {
+  repeated Player                                 Player     = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetGameRequest {
+  uint64 id = 1;
+}
+
+message QueryGetGameResponse {
+  Game Game = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllGameRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllGameResponse {
+  repeated Game                                   Game       = 1 [(gogoproto.nullable) = false];
+           cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+

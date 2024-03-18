@@ -1,0 +1,18 @@
+syntax = "proto3";
+package game.game;
+
+option go_package = "game/x/game/types";
+import "game/game/player.proto"; 
+
+message Game {
+  uint64 id = 1;
+  string creator = 2; 
+  uint64 secretNumber = 3; 
+  string reward = 4; 
+  string entryFee = 5; 
+  uint64 duration = 6; 
+  repeated Player players = 7; 
+  string state = 8; 
+  uint64 time = 9; 
+  
+}

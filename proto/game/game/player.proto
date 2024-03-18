@@ -1,0 +1,11 @@
+syntax = "proto3";
+package game.game;
+
+option go_package = "game/x/game/types";
+
+message Player {
+  uint64 id = 1;
+  string address = 2; 
+  uint64 guess = 3; 
+  
+}

@@ -1,0 +1,14 @@
+syntax = "proto3";
+package game.game;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "game/x/game/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  
+  uint64 maxPlayersPerGame = 1 [(gogoproto.moretags) = "yaml:\"max_players_per_game\""];
+  uint64 minDistanceToWin = 2 [(gogoproto.moretags) = "yaml:\"min_distance_to_win\""];
+}

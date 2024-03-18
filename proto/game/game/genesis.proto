@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package game.game;
+
+import "gogoproto/gogo.proto";
+import "game/game/params.proto";
+import "game/game/player.proto";
+import "game/game/game.proto";
+
+option go_package = "game/x/game/types";
+
+// GenesisState defines the game module's genesis state.
+message GenesisState {
+           Params params      = 1 [(gogoproto.nullable) = false];
+  repeated Player playerList  = 2 [(gogoproto.nullable) = false];
+           uint64 playerCount = 3;
+  repeated Game   gameList    = 4 [(gogoproto.nullable) = false];
+           uint64 gameCount   = 5;
+}
+

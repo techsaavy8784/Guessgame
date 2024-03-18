@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package game.game;
+
+option go_package = "game/x/game/types";
+
+// Msg defines the Msg service.
+service Msg {
+  rpc CreateGame  (MsgCreateGame ) returns (MsgCreateGameResponse );
+  rpc SubmitGuess (MsgSubmitGuess) returns (MsgSubmitGuessResponse);
+  rpc EndGame     (MsgEndGame    ) returns (MsgEndGameResponse    );
+}
+message MsgCreateGame {
+  string creator      = 1;
+  uint64 secretNumber = 2;
+  string reward       = 3;
+  string entryFee     = 4;
+  uint64 duration     = 5;
+}
+
+message MsgCreateGameResponse {
+  uint64 gameId = 1;
+}
+
+message MsgSubmitGuess {
+  string creator = 1;
+  uint64 gameId  = 2;
+  uint64 guess   = 3;
+}
+
+message MsgSubmitGuessResponse {}
+
+message MsgEndGame {
+  string creator = 1;
+  uint64 gameId  = 2;
+}
+
+message MsgEndGameResponse {}
+
