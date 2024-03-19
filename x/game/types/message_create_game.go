@@ -45,5 +45,24 @@ func (msg *MsgCreateGame) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
 	}
+	reward, _ := sdk.ParseCoinsNormalized(msg.Reward)
+	if !reward.IsValid() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "reward is not a valid Coins object")
+	}
+	if reward.Empty() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "reward is empty")
+	}
+	fee, _ := sdk.ParseCoinsNormalized(msg.EntryFee)
+	if !fee.IsValid() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "fee is not a valid Coins object")
+	}
+
+	if msg.Duration <= 0 {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "deadline should be a positive integer")
+	}
+
+	if msg.SecretNumber <= 0 {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "secretNumber should be a positive integer")
+	}
 	return nil
 }
