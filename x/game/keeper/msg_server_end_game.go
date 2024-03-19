@@ -28,13 +28,11 @@ func (k msgServer) EndGame(goCtx context.Context, msg *types.MsgEndGame) (*types
 
 	minDistanceToWin := uint64(100)
 	secretNumber := game.SecretNumber
-	fmt.Println("TTTTTTTTTTTTTTTTTTTTTThis is secretnumber", game.SecretNumber)
 	creator, _ := sdk.AccAddressFromBech32(game.Creator)
 	fmt.Println(game.Players, "This is a player of this game")
 
 	for _, player := range game.Players {
 		distance := math.Abs(float64(secretNumber - player.Guess))
-		fmt.Println("----------------------------distance------------------------------------", distance)
 		playerAddr, err := sdk.AccAddressFromBech32(player.Address)
 		if err != nil {
 			return nil, errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid player address")
