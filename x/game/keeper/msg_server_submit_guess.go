@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"strconv"
 
 	"game/x/game/types"
 
@@ -71,6 +72,15 @@ func (k msgServer) SubmitGuess(goCtx context.Context, msg *types.MsgSubmitGuess)
 
 	// Update the game in the store.
 	k.SetGame(ctx, game)
+
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			"SubmittedGuess",
+			sdk.NewAttribute("gameId", strconv.Itoa(int(msg.GameId))),
+			sdk.NewAttribute("player", msg.Creator),
+			sdk.NewAttribute("guessNumber", strconv.Itoa(int(msg.Guess))),
+		),
+	)
 
 	return &types.MsgSubmitGuessResponse{}, nil
 }

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"math"
+	"strconv"
 
 	"game/x/game/types"
 
@@ -68,6 +69,14 @@ func (k msgServer) EndGame(goCtx context.Context, msg *types.MsgEndGame) (*types
 	// Update game state to "ended".
 	game.State = "ended"
 	k.SetGame(ctx, game)
+
+	// Emit an event for game ended.
+	ctx.EventManager().EmitEvent(
+		sdk.NewEvent(
+			"GameEnded", // Event type
+			sdk.NewAttribute("gameId", strconv.Itoa(int(msg.GameId))), // Attribute - game ID
+			sdk.NewAttribute("creator", msg.Creator),                  // Attribute - game creator
+		))
 
 	return &types.MsgEndGameResponse{}, nil
 }
