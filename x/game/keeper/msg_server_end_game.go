@@ -32,7 +32,7 @@ func (k msgServer) EndGame(goCtx context.Context, msg *types.MsgEndGame) (*types
 	creator, _ := sdk.AccAddressFromBech32(game.Creator)
 
 	for _, player := range game.Players {
-		distance := math.Abs(float64(secretNumber - player.Guess))
+		is_win := math.Abs(float64(secretNumber - player.Guess))
 		playerAddr, err := sdk.AccAddressFromBech32(player.Address)
 		if err != nil {
 			return nil, errorsmod.Wrapf(sdkerrors.ErrInvalidAddress, "invalid player address")
@@ -43,7 +43,7 @@ func (k msgServer) EndGame(goCtx context.Context, msg *types.MsgEndGame) (*types
 			return nil, errorsmod.Wrapf(sdkerrors.ErrInvalidCoins, "invalid entry fee format")
 		}
 
-		if uint64(distance) <= minDistanceToWin {
+		if uint64(is_win) <= minDistanceToWin {
 			// Player guessed correctly, reward them and return their deposit.
 			reward, err := sdk.ParseCoinsNormalized(game.Reward)
 			if err != nil {
