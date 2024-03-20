@@ -2,7 +2,6 @@ package keeper
 
 import (
 	"context"
-	"fmt"
 	"math"
 	"strconv"
 
@@ -27,10 +26,10 @@ func (k msgServer) EndGame(goCtx context.Context, msg *types.MsgEndGame) (*types
 		return nil, errorsmod.Wrapf(types.ErrWrongGameState, "game state %v is not created", game.State)
 	}
 
-	minDistanceToWin := uint64(100)
+	minDistanceToWin := k.GetParams(ctx).MinDistanceToWin
+	
 	secretNumber := game.SecretNumber
 	creator, _ := sdk.AccAddressFromBech32(game.Creator)
-	fmt.Println(game.Players, "This is a player of this game")
 
 	for _, player := range game.Players {
 		distance := math.Abs(float64(secretNumber - player.Guess))

@@ -16,8 +16,7 @@ func (k msgServer) SubmitGuess(goCtx context.Context, msg *types.MsgSubmitGuess)
 
 	currentTime := ctx.BlockTime().Unix()
 
-	maxPlayersPerGame := uint64(3)
-
+	maxPlayersPerGame := k.GetParams(ctx).MaxPlayersPerGame
 	var player = types.Player{
 		Address: msg.Creator,
 		Guess:   msg.Guess,

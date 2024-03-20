@@ -12,13 +12,13 @@ var _ paramtypes.ParamSet = (*Params)(nil)
 var (
 	KeyMaxPlayersPerGame = []byte("MaxPlayersPerGame")
 	// TODO: Determine the default value
-	DefaultMaxPlayersPerGame uint64 = 0
+	DefaultMaxPlayersPerGame uint64 = 3
 )
 
 var (
 	KeyMinDistanceToWin = []byte("MinDistanceToWin")
 	// TODO: Determine the default value
-	DefaultMinDistanceToWin uint64 = 0
+	DefaultMinDistanceToWin uint64 = 100
 )
 
 // ParamKeyTable the param key table for launch module

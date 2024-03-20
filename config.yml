@@ -31,7 +31,3 @@ faucet:
 validators:
 - name: alice
   bonded: 100000000stake
-
-app_params:
-  max_players_per_game: 5       # Maximum number of players allowed per game
-  min_distance_to_win: 5         # Minimum distance to win the game
