@@ -26,13 +26,13 @@ gamed tx game create-game [secretNumber] [reward] [entryFee] [duration] --from [
 gamed tx game submit-guess [gameId] [guess] --from [guesser]
 ```
 
-## How to end a game
+### How to end a game
 
 ```
 gamed tx game end-game [gameId] --from [creator]
 ```
 
-## How to query the current game status
+### How to query the current game status
 
 ```
 gamed q game list-game
